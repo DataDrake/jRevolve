@@ -19,14 +19,13 @@ public class RevolverBrowser extends Region {
     private Timer time;
 
     public final static long FIVE = 5000;
-    public final static long TEN = 10000;
 
-    public RevolverBrowser() {
+    public RevolverBrowser(String configFile) {
         //apply the styles
         getStyleClass().add("browser");
         //add the web view to the scene
         getChildren().add(browser);
-        task = new RevolverTask(webEngine);
+        task = new RevolverTask(webEngine, configFile);
         time = new Timer();
     }
 
@@ -48,7 +47,7 @@ public class RevolverBrowser extends Region {
     }
 
     public void start() {
-        time.scheduleAtFixedRate(task,0,TEN);
+        time.scheduleAtFixedRate(task,0,FIVE);
     }
 
     public void stop() {

@@ -3,24 +3,18 @@ package com.datadrake.jRevolve;
 import javafx.application.Platform;
 import javafx.scene.web.WebEngine;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by bryan on 11/17/15.
  */
 public class RevolverTask extends TimerTask {
 
-    private WebEngine engine;
     private RevolverRunner runner;
 
-    public RevolverTask(WebEngine engine){
+    public RevolverTask(WebEngine engine, String configFile){
         super();
-        this.engine = engine;
-        this.runner = new RevolverRunner(engine);
+        this.runner = new RevolverRunner(engine,configFile);
     }
 
     @Override
@@ -31,24 +25,19 @@ public class RevolverTask extends TimerTask {
     private class RevolverRunner implements Runnable{
 
         private WebEngine engine;
-        private List<String> urls = new ArrayList<String>();
-        private Iterator<String> it;
+        private RevolverTimeline timeline;
 
-        public RevolverRunner(WebEngine engine){
+        public RevolverRunner(WebEngine engine, String configFile){
             this.engine = engine;
-            urls.add("http://rc.rit.edu/notices");
-            urls.add("http://xkcd.com");
-            urls.add("http://quartermaster.ce.rit.edu/rackmap/RI_master.xml");
-            urls.add("http://xdmod.rc.rit.edu");
+            this.timeline = new RevolverTimeline(configFile);
         }
 
         @Override
         public void run() {
-            if ((it == null) || !it.hasNext() ){
-                it = urls.iterator();
+            timeline.increment();
+            if( timeline.changed() ){
+                engine.load( timeline.getURL() );
             }
-            engine.load(it.next());
-            System.out.println(engine.getLocation());
         }
     }
 }

@@ -12,7 +12,12 @@ public class jRevolver extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         stage.setTitle("Web View");
-        browser = new RevolverBrowser();
+        String configFile = getParameters().getNamed().get("config");
+        if(configFile == null){
+            System.out.println("ERROR: no config specified.");
+            System.exit(1);
+        }
+        browser = new RevolverBrowser(configFile);
         Scene scene = new Scene(browser, Color.web("#666970"));
         stage.setScene(scene);
         stage.show();
@@ -27,6 +32,11 @@ public class jRevolver extends Application {
 
 
     public static void main(String[] args) {
-        launch(args);
+        if(args.length > 0) {
+            launch(args);
+        } else {
+            System.out.println("Usage: java -jar jRevolver.jar --config=<path>");
+            System.exit(1);
+        }
     }
 }
