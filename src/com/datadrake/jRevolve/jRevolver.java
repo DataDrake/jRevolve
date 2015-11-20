@@ -21,7 +21,16 @@ public class jRevolver extends Application {
         Scene scene = new Scene(browser, Color.web("#666970"));
         stage.setScene(scene);
         stage.show();
-        stage.setFullScreen(true);
+        try{
+          int height = Integer.parseInt(getParameters().getNamed().get("height"));
+          int width = Integer.parseInt(getParameters().getNamed().get("width"));
+          stage.setHeight(height);
+          stage.setWidth(width);
+          stage.setX(0);
+          stage.setY(0);
+        }catch(Exception ex){
+          stage.setFullScreen(true);
+        }
         browser.start();
     }
 
@@ -35,7 +44,7 @@ public class jRevolver extends Application {
         if(args.length > 0) {
             launch(args);
         } else {
-            System.out.println("Usage: java -jar jRevolver.jar --config=<path>");
+            System.out.println("Usage: java -jar jRevolver.jar --config=<path> [--height=<int> --width=<int>]");
             System.exit(1);
         }
     }
