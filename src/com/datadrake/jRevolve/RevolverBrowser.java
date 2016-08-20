@@ -3,6 +3,8 @@ package com.datadrake.jRevolve;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Region;
+
+import java.awt.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 

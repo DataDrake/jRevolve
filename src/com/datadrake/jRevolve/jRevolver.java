@@ -18,7 +18,7 @@ public class jRevolver extends Application {
             System.exit(1);
         }
         browser = new RevolverBrowser(configFile);
-        Scene scene = new Scene(browser, Color.web("#666970"));
+        Scene scene = new Scene(browser, Color.web("#000000"));
         stage.setScene(scene);
         stage.show();
         stage.setFullScreen(true);

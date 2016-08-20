@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class RevolverTimeline {
 
     private String configFile;
+    private String oldLocation;
 
     private List<Integer> times;
     private List<String> urls;
@@ -21,6 +22,7 @@ public class RevolverTimeline {
     public RevolverTimeline(String configFile){
         this.configFile = configFile;
         this.currentTime = 0;
+        this.oldLocation = "";
         updateConfig();
     }
 
@@ -70,10 +72,11 @@ public class RevolverTimeline {
     }
 
     public String getURL(){
-        return getURL(currentTime);
+        oldLocation = getURL(currentTime);
+        return oldLocation;
     }
 
     public boolean changed(){
-        return getURL(currentTime).equals(getURL(currentTime - 5));
+        return ! (getURL(currentTime).equals(oldLocation));
     }
 }
